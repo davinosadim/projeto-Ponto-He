@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const pontoSchema = new Schema({
+const catracaSchema = new Schema({
   nomeColaborador: String,
   matricula: { type: String, unique: true },
   registroEntrada: { type: Date },
@@ -8,4 +8,4 @@ const pontoSchema = new Schema({
   data: { type: Date },
 });
 
-export default model("pontoModels", pontoSchema);
+export default model("catraca", catracaSchema, "catraca");
