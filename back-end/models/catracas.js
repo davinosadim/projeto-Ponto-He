@@ -2,10 +2,10 @@ import { Schema, model } from "mongoose";
 
 const catracaSchema = new Schema({
   nomeColaborador: String,
-  matricula: { type: String, unique: true },
+  matricula: { type: String },
   registroEntrada: { type: Date },
   registroSaida: { type: Date },
   data: { type: Date },
 });
 
-export default model("catraca", catracaSchema, "catraca");
+export default model("catracas", catracaSchema, "catracas");
