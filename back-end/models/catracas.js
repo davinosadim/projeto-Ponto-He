@@ -8,4 +8,4 @@ const catracaSchema = new Schema({
   data: { type: Date },
 });
 
-export default model("catracas", catracaSchema, "catracas");
+export default model("catraca", catracaSchema, "catraca");
