@@ -5,11 +5,9 @@ export const getByDate = async (req, res) => {
   try {
     await connectDbCatraca();
 
-    const { matricula } = req.body;
+    const { data } = req.body;
 
-    const result = await catracas.find({
-      matricula,
-    });
+    const result = await catracas.find().where({ data });
 
     res.status(200).json(result);
   } catch (error) {
