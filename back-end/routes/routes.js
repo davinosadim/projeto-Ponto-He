@@ -1,7 +1,6 @@
 import express from "express";
-import { findInfo, getByDate } from "../controllers/catracaController.js";
+import { getByDate } from "../controllers/pontoController.js";
 
 export const router = express.Router();
 
-router.get("/registrosCatracas", getByDate);
-router.get("/", findInfo);
+router.get("/registrosPonto", getByDate);

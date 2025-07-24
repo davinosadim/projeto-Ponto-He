@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ponto from "../models/catracas.js";
+import ponto from "../models/pontos.js";
 import { dadosPonto } from "./ponto_seed.js";
 import { connectDbPonto } from "../db/dbPonto.js";
 
