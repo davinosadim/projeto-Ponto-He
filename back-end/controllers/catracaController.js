@@ -1,13 +1,11 @@
 import catracas from "../models/catracas.js";
 import { connectDbCatraca } from "../db/dbCatraca.js";
 
-export const getByDate = async (req, res) => {
+export const getByDated = async (req, res) => {
   try {
     await connectDbCatraca();
 
-    const { data } = req.body;
-
-    const result = await catracas.find().where({ data });
+    const result = await catracas.find();
 
     res.status(200).json(result);
   } catch (error) {
