@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
+import { connectDbCatraca } from "../db/dbCatraca.js";
 
 const catracaSchema = new Schema({
   nomeColaborador: String,
@@ -8,4 +9,4 @@ const catracaSchema = new Schema({
   data: { type: Date },
 });
 
-export default model("catraca", catracaSchema, "catraca");
+export default connectDbCatraca.model("catraca", catracaSchema, "catraca");

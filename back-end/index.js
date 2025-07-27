@@ -8,7 +8,6 @@ app.use(express.json());
 const { PORT } = process.env;
 
 app.use("/", router);
-app.use("/", router);
 
 app.listen(PORT, () => {
   console.log(`Server is running in port ${PORT}`);

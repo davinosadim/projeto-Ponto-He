@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { connectDbPonto } from "../db/dbPonto.js";
 
 const pontoSchema = new Schema({
   nomeColaborador: String,
@@ -8,4 +9,4 @@ const pontoSchema = new Schema({
   data: { type: Date },
 });
 
-export default model("ponto", pontoSchema, "ponto");
+export default connectDbPonto.model("ponto", pontoSchema, "ponto");
