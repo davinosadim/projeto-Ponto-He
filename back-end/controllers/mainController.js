@@ -4,13 +4,35 @@ import pontos from "../models/pontos.js";
 
 export const gettingClockAndAcess = async (req, res) => {
   try {
-    const { dataAcess, dataClock } = req.body;
+    const { data } = req.body;
 
-    const acessVerify = await catracas.find().where({ dataAcess });
-    const clockVerify = await pontos.find().where({ dataClock });
+    const acessVerify = await catracas.where({ data });
+    const clockVerify = await pontos.where({ data });
 
-    if (acessVerify && clockVerify) {
-      res.status(200).json({ acessVerify, clockVerify });
+    const acessFiltered = acessVerify.map((item) => ({
+      nomeColaborador: item.nomeColaborador,
+      matricula: item.matricula,
+      registroEntrada: item.registroEntrada,
+      registroSaida: item.registroSaida,
+      data: item.data,
+    }));
+
+    const clockFiltered = clockVerify.map((item) => ({
+      nomeColaborador: item.nomeColaborador,
+      matricula: item.matricula,
+      batidaEntrada: item.batidaPontoEntrada,
+      batidaSaida: item.batidaPontoSaida,
+      data: item.data,
+    }));
+
+    const hour = new Date();
+
+    if (hour > 8) {
+      console.log(hour);
+    }
+
+    if (acessFiltered && clockFiltered) {
+      res.status(200).json({ acessFiltered, clockFiltered });
     } else {
       res.status(400).json({ message: "dados não encontrados" });
     }
