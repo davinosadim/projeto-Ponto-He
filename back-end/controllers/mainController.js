@@ -4,35 +4,46 @@ import pontos from "../models/pontos.js";
 
 export const gettingClockAndAcess = async (req, res) => {
   try {
-    const { data } = req.body;
+    const { matricula } = req.body;
 
-    const acessVerify = await catracas.where({ data });
-    const clockVerify = await pontos.where({ data });
+    // const acessVerify = await catracas.where({ data });
+    const clockVerify = await pontos.where({ matricula });
 
-    const acessFiltered = acessVerify.map((item) => ({
-      nomeColaborador: item.nomeColaborador,
-      matricula: item.matricula,
-      registroEntrada: item.registroEntrada,
-      registroSaida: item.registroSaida,
-      data: item.data,
-    }));
+    // const acessFiltered = acessVerify.map((item) => ({
+    //   nomeColaborador: item.nomeColaborador,
+    //   matricula: item.matricula,
+    //   registroEntrada: item.registroEntrada,
+    //   registroSaida: item.registroSaida,
+    //   data: item.data,
+    // }));
 
     const clockFiltered = clockVerify.map((item) => ({
       nomeColaborador: item.nomeColaborador,
       matricula: item.matricula,
       batidaEntrada: item.batidaPontoEntrada,
       batidaSaida: item.batidaPontoSaida,
-      data: item.data,
     }));
 
-    const hour = new Date();
+    const gettingEnterClockHours = clockFiltered.map((d) =>
+      new Date(d.batidaEntrada).toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
-    if (hour > 8) {
-      console.log(hour);
-    }
+    const gettingExitClockHours = clockFiltered.map((d) =>
+      new Date(d.batidaSaida).toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
-    if (acessFiltered && clockFiltered) {
-      res.status(200).json({ acessFiltered, clockFiltered });
+    const fullHour = { gettingEnterClockHours, gettingExitClockHours };
+
+    console.log(fullHour);
+
+    if (fullHour) {
+      res.status(200).json({ fullHour });
     } else {
       res.status(400).json({ message: "dados não encontrados" });
     }
