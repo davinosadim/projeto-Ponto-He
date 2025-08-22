@@ -6,16 +6,16 @@ export const gettingClockAndAcess = async (req, res) => {
   try {
     const { matricula } = req.body;
 
-    // const acessVerify = await catracas.where({ data });
-    const clockVerify = await pontos.where({ matricula });
+    const acessVerify = await catracas.where({ matricula });
+    const clockVerify = await pontos.find({ matricula });
 
-    // const acessFiltered = acessVerify.map((item) => ({
-    //   nomeColaborador: item.nomeColaborador,
-    //   matricula: item.matricula,
-    //   registroEntrada: item.registroEntrada,
-    //   registroSaida: item.registroSaida,
-    //   data: item.data,
-    // }));
+    const acessFiltered = acessVerify.map((item) => ({
+      nomeColaborador: item.nomeColaborador,
+      matricula: item.matricula,
+      registroEntrada: item.registroEntrada,
+      registroSaida: item.registroSaida,
+      data: item.data,
+    }));
 
     const clockFiltered = clockVerify.map((item) => ({
       nomeColaborador: item.nomeColaborador,
@@ -38,12 +38,29 @@ export const gettingClockAndAcess = async (req, res) => {
       })
     );
 
-    const fullHour = { gettingEnterClockHours, gettingExitClockHours };
+    const gettinEnterAcessHours = acessFiltered.map((d) =>
+      new Date(d.registroEntrada).toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
-    console.log(fullHour);
+    const gettinExitAcessHours = acessFiltered.map((d) =>
+      new Date(d.registroSaida).toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
-    if (fullHour) {
-      res.status(200).json({ fullHour });
+    const fullHourClock = { gettingEnterClockHours, gettingExitClockHours };
+
+    const fullHourAcess = { gettinEnterAcessHours, gettinExitAcessHours };
+
+    console.log(fullHourClock);
+    console.log(fullHourAcess);
+
+    if (fullHourAcess || fullHourClock) {
+      res.status(200).json({ fullHourAcess, fullHourClock });
     } else {
       res.status(400).json({ message: "dados não encontrados" });
     }
